@@ -1,0 +1,45 @@
+
+.rbc-header{
+    color:#B1B1B1;
+    padding: 10px;
+    font-size: 50px;
+    border: none !important;
+}
+.rbc-timeslot-group{
+    color:#B1B1B1;
+    border: none !important;
+    min-height: 100px !important;
+}
+.rbc-time-view{
+    border: none !important;
+}
+.rbc-allday-cell{
+    display: none !important;
+}
+.rbc-events-container{
+    width:100%;
+    border: none !important;
+}
+.rbc-event-label {
+    display: none !important;
+  }
+  
+  .rbc-event {
+    padding: 0px !important;
+    border-radius: 10px !important;
+    border: none !important;
+    background-color: transparent !important;
+  }
+  
+  .rbc-background-event {
+    padding: 0px !important;
+    border-radius: 10px !important;
+    border: none !important;
+    background-color: transparent !important;
+  }
+  
+.rbc-time-slot {
+    color: #B1B1B1;
+    border-color:#DCDCDC !important;
+  }
+  
