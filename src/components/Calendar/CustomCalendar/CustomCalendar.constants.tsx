@@ -45,7 +45,7 @@ export const EVENTS: EventItem[] = [
     data: {
       blockout: {
         id: 1,
-        name: "Christmas Holidays",
+        name: "Праздничный день",
       },
     },
   },

@@ -43,7 +43,7 @@ export default function CustomCalendar(props: CustomCalendarProps) {
   return (
     <DnDCalendar
       components={components}
-      // events={appointments}
+      events={appointments}
       backgroundEvents={blockouts}
       {...props}
     />
