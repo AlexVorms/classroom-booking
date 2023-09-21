@@ -42,4 +42,12 @@
     color: #B1B1B1;
     border-color:#DCDCDC !important;
   }
-  
+
+.rbc-today {
+  background: #f6faff !important;
+}
+.navbar,
+.navbar-default {
+    background-image: linear-gradient(to bottom,#5161ce 0,#5161ce 100%) !important; /* override background image gradient w/ flat color */
+}
+

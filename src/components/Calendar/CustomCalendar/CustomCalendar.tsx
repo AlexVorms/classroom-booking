@@ -48,6 +48,7 @@ export default function CustomCalendar(props: CustomCalendarProps) {
       backgroundEvents={blockouts}
       {...props}
     localizer={localizer}
+    
     />
   
   );
