@@ -3,8 +3,8 @@ import React from "react";
 import {
   AppointmentStatusCode,
   EVENT_STATUS_COLORS,
-} from "./CustomCalendar.constants.tsx";
-import { Appointment } from "./CustomCalendar.types.tsx";
+} from "./CustomCalendar.constants";
+import { Appointment } from "./CustomCalendar.types";
 import { Card } from "react-bootstrap";
 
 export default function AppointmentEvent({

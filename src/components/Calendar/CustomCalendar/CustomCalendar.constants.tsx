@@ -1,5 +1,5 @@
 import moment from "moment";
-import { EventItem } from "./CustomCalendar.types.tsx";
+import { EventItem } from "./CustomCalendar.types";
 
 
 export enum AppointmentStatusCode {

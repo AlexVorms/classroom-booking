@@ -5,9 +5,9 @@ import {
   } from "react-big-calendar";
   import moment from "moment";
   import 'moment/locale/ru'
-import React from "react";
+
 import "../../index.css"
-import {EVENTS} from "./CustomCalendar/CustomCalendar.constants.tsx"
+import {EVENTS} from "./CustomCalendar/CustomCalendar.constants"
 
 
  const messages = { // new

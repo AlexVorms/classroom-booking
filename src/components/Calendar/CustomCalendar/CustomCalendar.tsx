@@ -1,25 +1,26 @@
 import moment from "moment";
-import { Calendar } from "../Calendar.tsx";
-import Appointment from "./AppointmentEvent.tsx";
-import Blockout from "./BlockoutEvent.tsx";
-import { EVENTS } from "./CustomCalendar.constants.tsx";
+import { Calendar } from "../Calendar";
+
+import { EVENTS } from "./CustomCalendar.constants";
+
 
 import withDragAndDrop, {
   withDragAndDropProps,
 } from "react-big-calendar/lib/addons/dragAndDrop";
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
-import { CalendarProps } from "react-big-calendar";
-import { EventItem } from "./CustomCalendar.types.tsx";
-import AppointmentEvent from "./AppointmentEvent.tsx";
-import BlockoutEvent from "./BlockoutEvent.tsx";
+import { CalendarProps, momentLocalizer } from "react-big-calendar";
+import { EventItem } from "./CustomCalendar.types";
+import AppointmentEvent from "./AppointmentEvent";
+import BlockoutEvent from "./BlockoutEvent";
 
+const localizer = momentLocalizer(moment);
 const DnDCalendar = withDragAndDrop(Calendar);
 type DnDType = CalendarProps & withDragAndDropProps;
 type CustomCalendarProps = Omit<DnDType, "components" | "localizer">;
 
 export default function CustomCalendar(props: CustomCalendarProps) {
   const components = {
-    event: ({ event }) => {
+    event: ({ event }:any) => {
       const data = event?.data;
       if (data?.appointment)
         return <AppointmentEvent appointment={data?.appointment} />;
@@ -46,6 +47,8 @@ export default function CustomCalendar(props: CustomCalendarProps) {
       events={appointments}
       backgroundEvents={blockouts}
       {...props}
+    localizer={localizer}
     />
+  
   );
 }
