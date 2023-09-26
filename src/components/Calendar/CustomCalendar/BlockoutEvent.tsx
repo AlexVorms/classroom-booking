@@ -8,10 +8,11 @@ export default function BlockoutEvent({ blockout }: { blockout: Blockout }) {
     <div style={{
       background:"lightgray",
       height:"100%",
-      justifyContent: 'center'
+      justifyContent: 'center !important'
     }}
     >
-      <div style={{color:"gray", fontWeight:"bold", fontSize:"s", textAlign:"center"}}>
+      <div style={{color:"gray", fontWeight:"bold", fontSize:"s", textAlign:"center", position:'absolute',
+    top:'250px', left:"13px"}}>
         {blockout.name}
       </div>
     </div>

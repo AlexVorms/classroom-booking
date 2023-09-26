@@ -1,14 +1,14 @@
 
 .rbc-header{
-    color:#B1B1B1;
+  color:#B1B1B1;
     padding: 10px;
-    font-size: 50px;
     border: none !important;
 }
 .rbc-timeslot-group{
     color:#B1B1B1;
     border: none !important;
     min-height: 100px !important;
+    font-size: 20px;
 }
 .rbc-time-view{
     border: none !important;
@@ -51,3 +51,14 @@
     background-image: linear-gradient(to bottom,#5161ce 0,#5161ce 100%) !important; /* override background image gradient w/ flat color */
 }
 
+.rbc-toolbar-label{
+  font-size: 16px;
+  font-weight: 700;
+  color: gray
+}
+.rbc-btn-group{
+  color: gray
+}
+[role=columnheader]{
+  font-size: 20px;
+}

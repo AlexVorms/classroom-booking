@@ -2,8 +2,6 @@ import moment from "moment";
 import { Calendar } from "../Calendar";
 
 import { EVENTS } from "./CustomCalendar.constants";
-
-
 import withDragAndDrop, {
   withDragAndDropProps,
 } from "react-big-calendar/lib/addons/dragAndDrop";
@@ -24,7 +22,7 @@ export default function CustomCalendar(props: CustomCalendarProps) {
       const data = event?.data;
       if (data?.appointment)
         return <AppointmentEvent appointment={data?.appointment} />;
-      if (data?.blockout) return <BlockoutEvent blockout={data?.blockout} />;
+      if (data?.blockout) return <BlockoutEvent blockout={data?.blockout}/>;
 
       return null;
     },
@@ -38,8 +36,7 @@ export default function CustomCalendar(props: CustomCalendarProps) {
     },
     { appointments: [] as EventItem[], blockouts: [] as EventItem[] }
   );
-
-  console.log({ props });
+  console.log(appointments)
 
   return (
     <DnDCalendar
@@ -48,7 +45,7 @@ export default function CustomCalendar(props: CustomCalendarProps) {
       backgroundEvents={blockouts}
       {...props}
     localizer={localizer}
-    
+    draggableAccessor={event=> false}
     />
   
   );

@@ -20,11 +20,12 @@ export const EVENTS: EventItem[] = [
       appointment: {
         id: 1,
         status: "P",
-        location: "New York",
-        resource: "Dr Alex",
+        location: "Английский язык",
+        resource: "10:00-11:00",
         address: "Building 5\nStreet 44\nNear Express Highway\nNew York",
       },
     },
+    isDraggable:true,
   },
   {
     start: moment("2022-10-10T12:00:00").toDate(),
@@ -33,11 +34,12 @@ export const EVENTS: EventItem[] = [
       appointment: {
         id: 2,
         status: "CI",
-        location: "Washington",
-        resource: "Dr David",
+        location: "Философия",
+        resource: "12:00-13:00",
         address: "Block 1\nSStreet 32\nLong Island\nNew York",
       },
     },
+    isDraggable:true,
   },
   {
     start: moment("2022-10-12T09:00:00").toDate(),
@@ -48,5 +50,6 @@ export const EVENTS: EventItem[] = [
         name: "Праздничный день",
       },
     },
+    isDraggable: false,
   },
 ];
