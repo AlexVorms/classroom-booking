@@ -33,8 +33,7 @@ import { Container } from "react-bootstrap";
         defaultDate: new Date(2015, 3, 1),
         views: {
           day: true,
-          week: true,
-          agenda: true
+          week: true
         },
       }),
       []
