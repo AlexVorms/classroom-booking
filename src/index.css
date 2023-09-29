@@ -8,7 +8,7 @@
     color:#B1B1B1;
     border: none !important;
     min-height: 100px !important;
-    font-size: 20px;
+
 }
 .rbc-time-view{
     border: none !important;
@@ -17,7 +17,7 @@
     display: none !important;
 }
 .rbc-events-container{
-    width:100%;
+  
     border: none !important;
 }
 .rbc-event-label {
@@ -61,4 +61,18 @@
 }
 [role=columnheader]{
   font-size: 20px;
+}
+
+[type="time"]{
+  color:#5161ce;
+  border: none !important;
+}
+[type="time"]::-webkit-inner-spin-button {
+  display: none;
+  border: none !important;
+  
+}
+[type="time"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  border: none !important;
 }

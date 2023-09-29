@@ -14,28 +14,28 @@ export const EVENT_STATUS_COLORS = {
 
 export const EVENTS: EventItem[] = [
   {
-    start: moment("2022-10-10T10:00:00").toDate(),
-    end: moment("2022-10-10T11:00:00").toDate(),
+    start: moment("2022-10-10T10:35:00").toDate(),
+    end: moment("2022-10-10T12:10:00").toDate(),
     data: {
       appointment: {
         id: 1,
         status: "P",
         location: "Английский язык",
-        resource: "10:00-11:00",
+        resource: "10:35-12:10",
         address: "Building 5\nStreet 44\nNear Express Highway\nNew York",
       },
     },
     isDraggable:true,
   },
   {
-    start: moment("2022-10-10T12:00:00").toDate(),
-    end: moment("2022-10-10T13:00:00").toDate(),
+    start: moment("2022-10-10T12:25:00").toDate(),
+    end: moment("2022-10-10T14:00:00").toDate(),
     data: {
       appointment: {
         id: 2,
         status: "CI",
         location: "Философия",
-        resource: "12:00-13:00",
+        resource: "12:25-14:00",
         address: "Block 1\nSStreet 32\nLong Island\nNew York",
       },
     },

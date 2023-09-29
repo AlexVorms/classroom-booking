@@ -36,7 +36,7 @@ export default function CustomCalendar(props: CustomCalendarProps) {
     },
     { appointments: [] as EventItem[], blockouts: [] as EventItem[] }
   );
-  console.log(appointments)
+
 
   return (
     <DnDCalendar

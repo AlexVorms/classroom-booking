@@ -7,23 +7,39 @@ import ModalForDetails from '../ModalForCalendar/ModalForDetails'
 
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import {Form} from 'react-bootstrap'
+import {Form, Col, Row} from 'react-bootstrap'
 export default function DragAndDrop({
 }) {
   const [show, setShow] = useState(false);
   const [show1, setShow1] = useState(false);
-
-
+const[timeout, setTimeout] = useState(Date.now());
+const[timeStart, setTime] = useState(Date.now());
+const [timeEnd, setTimeEnd] = useState(Date.now());
   const handleClose = () => setShow(false);
   const handleShow = (event) => {
-    console.log(event)
     setShow(true)
   };
  
+  function convert(str) {
+    var date = new Date(str)
+    
+      var mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+      day = ("0" + date.getDate()).slice(-2),
+      hours = ("0" + date.getHours()).slice(-2),
+      minutes = ("0" + date.getMinutes()).slice(-2);
+      console.log([hours, minutes].join(":"));
+      setTime([hours, minutes].join(":"))
+    return [date.getFullYear(), mnth, day].join("-");
+  }
 
   const handleClose1 = () => setShow1(false);
+
   const handleShow1 = (event) => {
-    console.log(event)
+    setTimeout(convert(event.start))
+    var date = new Date(event.end),
+    hours = ("0" + date.getHours()).slice(-2),
+    minutes = ("0" + date.getMinutes()).slice(-2);
+    setTimeEnd([hours, minutes].join(":"))
     setShow1(true)
   };
 
@@ -37,12 +53,12 @@ export default function DragAndDrop({
     (event) => handleShow1(event),
     []
   )
-
+  const today = new Date();
   return (
     <Fragment>
       <div className="height600">
         <CustomCalendar
-     
+        step={30}
           onSelectEvent={handleSelectEvent}
           onSelectSlot={addNewBooking}
           selectable
@@ -79,14 +95,64 @@ export default function DragAndDrop({
         </Modal.Header>
         <Modal.Body style={{}}>
           <Form>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-            <Form.Label style={{color:"#7367F0"}}>Email address</Form.Label>
-            <Form.Control type="email"   style={{borderColor:"#7367F0"}}/>
-          </Form.Group>
+         
           <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-            <Form.Label style={{color:"#7367F0"}}>Example textarea</Form.Label>
-            <Form.Control as="textarea" rows={3}  style={{borderColor:"#7367F0"}}/>
+            <Row>
+              <Col sm="1">
+              <img src='./time.png'></img>
+              </Col>
+              <Col sm="6">
+              <Form.Control type="date" value={timeout} onChange={(e) => setTimeout(convert(e.target.value))} style={{borderColor:"#7367F0", color:"#7367F0"}}/>
+              </Col>
+              <Col>
+              <input type="time" id="appt" name="appt" min="08:00" max="21:00" value={timeStart} onChange={(e) => setTime(e.target.value)} required style={{border:"none"}}/>
+              </Col>
+              <Col>
+              <input type="time" id="appt" name="appt" min="08:00" max="21:00" value={timeEnd} onChange={(e) => setTimeEnd(e.target.value)} required style={{border:"none"}} />
+              </Col>
+            </Row>
         </Form.Group>
+       
+        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Row>
+                <Col sm="1">
+                <img src='./company.png'></img>
+                </Col>
+                <Col sm="10">
+                <Form.Control plaintext readOnly defaultValue="Аудитория №2" style={{ color:"#7367F0"}}/>
+                </Col>
+              </Row>
+           
+          </Form.Group>
+
+       <Form.Group  style={{marginTop:"20px", color:"#7367F0"}}>
+        <Row>
+           <Col sm="1">
+              <img src='./edit.png'></img>
+              </Col>
+          <Col>
+          <div>Название мероприятия:</div>
+          </Col>
+          <Col>
+          <Form.Control></Form.Control>
+          </Col>
+        </Row>
+       </Form.Group>
+
+       <Form.Group style={{marginTop:"20px", color:"#7367F0"}}>
+        <Row>
+        <Col sm="1">
+              <img src='./user.png'></img>
+              </Col>
+          <Col sm="5">
+          <div>Кол-во участников:</div>
+          </Col>
+          <Col sm="6">
+          <Form.Control></Form.Control>
+          </Col>
+        </Row>
+       </Form.Group>
+
           </Form>
         </Modal.Body>
   
