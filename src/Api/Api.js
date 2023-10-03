@@ -13,7 +13,13 @@ const getAudiences =(id) => {
     .catch(error => error.response);
 }
 
+const getShedule = (id, dateFrom, dateTo) => {
+    return instance.get("shedule?id=" +id+ "&dateFrom=" + dateFrom + "&dateTo=" + dateTo)
+    .then(response => response.data)
+    .catch(error => error.response);
+}
 export const API = {
     getBuildings: getBuildings,
-    getAudiences: getAudiences
+    getAudiences: getAudiences,
+    getShedule: getShedule
 }

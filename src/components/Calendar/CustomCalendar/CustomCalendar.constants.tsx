@@ -14,42 +14,44 @@ export const EVENT_STATUS_COLORS = {
 
 export const EVENTS: EventItem[] = [
   {
-    start: moment("2022-10-10T10:35:00").toDate(),
-    end: moment("2022-10-10T12:10:00").toDate(),
+    start: moment("2023-10-08T10:35:00").toDate(),
+    end: moment("2023-10-08T12:10:00").toDate(),
     data: {
       appointment: {
         id: 1,
         status: "P",
-        location: "Английский язык",
-        resource: "10:35-12:10",
-        address: "Building 5\nStreet 44\nNear Express Highway\nNew York",
+        type: "Английский язык",
+        lessonNumber: 1,
+        title: "Building 5\nStreet 44\nNear Express Highway\nNew York",
+        lessonType: "",
+        professor:{
+          id:"",
+          fullName:"",
+          shortName:""
       },
-    },
-    isDraggable:true,
+      audience:{
+        id:"",
+        name:"",
+        shortName:"",
+        building:{
+            id:"",
+            name:"",
+            address:"",
+            latitude: 0.0,
+            longitude: 0.0
+        }
+    }
+      },
+    }
   },
   {
-    start: moment("2022-10-10T12:25:00").toDate(),
-    end: moment("2022-10-10T14:00:00").toDate(),
-    data: {
-      appointment: {
-        id: 2,
-        status: "CI",
-        location: "Философия",
-        resource: "12:25-14:00",
-        address: "Block 1\nSStreet 32\nLong Island\nNew York",
-      },
-    },
-    isDraggable:true,
-  },
-  {
-    start: moment("2022-10-12T09:00:00").toDate(),
-    end: moment("2022-10-12T14:59:59").toDate(),
+    start: moment("2023-10-04T09:00:00").toDate(),
+    end: moment("2023-10-04T14:59:59").toDate(),
     data: {
       blockout: {
         id: 1,
         name: "Праздничный день",
       },
     },
-    isDraggable: false,
   },
 ];

@@ -45,7 +45,7 @@ import { Container } from "react-bootstrap";
        
         localizer={localizer}
         messages={messages} 
-        defaultDate={"2022-10-10"}
+        defaultDate={new Date()}
         defaultView={"week"}
         max={moment("2022-10-10T21:00:00").toDate()}
         min={moment("2022-10-10T08:00:00").toDate()}

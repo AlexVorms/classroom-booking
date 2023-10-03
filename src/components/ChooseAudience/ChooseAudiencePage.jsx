@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Card, Container } from 'react-bootstrap';
-
+import { NavLink } from 'react-router-dom';
 import Form from 'react-bootstrap/Form'
 
 class ChooseAudiencePage extends React.Component {
@@ -37,12 +37,13 @@ class ChooseAudiencePage extends React.Component {
                 })
                 }
                          </Form.Select>
-                         {this.state.getAudiences?<div> <Form.Select aria-label="Default select example" style={{marginTop:"20px",fontWeight:"600" }}>
+                         {this.state.getAudiences?<div> <Form.Select aria-label="Default select example" style={{marginTop:"20px",fontWeight:"600" }} onChange={this.chooseAudience}>
                             <option>Выбрать аудиторию</option>
                             {this.props.audiences.map((audience) => {
                     return <option value={audience.id} key = {audience.id}>{audience.name}</option>})}
                         </Form.Select>
-                        <Button style={{marginTop:"20px"}}>Показать календарь</Button></div>: <></>}
+                        <NavLink to = {'/calendar/' + this.state.selectAudiences} style={{ textDecoration: 'none', color: 'inherit' }}> 
+                        <Button style={{marginTop:"20px"}}>Показать календарь</Button></NavLink></div>: <></>}
                         
                     </Card.Body>
                   </Card>

@@ -20,6 +20,7 @@ export default function CustomCalendar(props: CustomCalendarProps) {
   const components = {
     event: ({ event }:any) => {
       const data = event?.data;
+
       if (data?.appointment)
         return <AppointmentEvent appointment={data?.appointment} />;
       if (data?.blockout) return <BlockoutEvent blockout={data?.blockout}/>;
@@ -41,7 +42,7 @@ export default function CustomCalendar(props: CustomCalendarProps) {
   return (
     <DnDCalendar
       components={components}
-      events={appointments}
+      
       backgroundEvents={blockouts}
       {...props}
     localizer={localizer}

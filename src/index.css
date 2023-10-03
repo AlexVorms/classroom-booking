@@ -44,7 +44,12 @@
   }
 
 .rbc-today {
-  background: #f6faff !important;
+  background-color: white !important;
+  border-bottom:none !important;
+}
+.rbc-now{
+  background-color: white !important;
+  border-bottom: none !important;
 }
 .navbar,
 .navbar-default {

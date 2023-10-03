@@ -11,7 +11,7 @@ function Navbar1() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/calendar">Календарь</Nav.Link>
+            <Nav.Link href="/audience">Календарь</Nav.Link>
             <Nav.Link href="/mybooking">Мое бронирование</Nav.Link>
           </Nav>
           

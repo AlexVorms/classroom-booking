@@ -7,6 +7,7 @@ import MyBookingPage from './components/MyBookingPage/MyBookingPage';
 import DragAndDrop from './components/Calendar/CustomCalendar/DrapAndDrop';
 
 import ChooseAudienceContainer from './components/ChooseAudience/ChooseAudienceContainer';
+import ShedulePageContainer from './components/Calendar/ShedulePageContainer';
 
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
     <BrowserRouter>
     <Navbar1/>
     <Routes>
-      <Route  path="/calendar" element={<DragAndDrop/>} ></Route>
+      <Route  path="/calendar/:id" element={<ShedulePageContainer/>} ></Route>
       <Route  path="/" element={<HomePage/>} ></Route>
       <Route  path="/mybooking" element={<MyBookingPage/>} ></Route>
       <Route path="/audience" element={<ChooseAudienceContainer/>}></Route>

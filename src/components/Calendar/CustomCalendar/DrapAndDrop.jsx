@@ -8,8 +8,9 @@ import ModalForDetails from '../ModalForCalendar/ModalForDetails'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import {Form, Col, Row} from 'react-bootstrap'
-export default function DragAndDrop({
-}) {
+
+export default function DragAndDrop(props) {
+  console.log(props)
   const [show, setShow] = useState(false);
   const [show1, setShow1] = useState(false);
 const[timeout, setTimeout] = useState(Date.now());
@@ -27,7 +28,6 @@ const [timeEnd, setTimeEnd] = useState(Date.now());
       day = ("0" + date.getDate()).slice(-2),
       hours = ("0" + date.getHours()).slice(-2),
       minutes = ("0" + date.getMinutes()).slice(-2);
-      console.log([hours, minutes].join(":"));
       setTime([hours, minutes].join(":"))
     return [date.getFullYear(), mnth, day].join("-");
   }
@@ -62,7 +62,7 @@ const [timeEnd, setTimeEnd] = useState(Date.now());
           onSelectEvent={handleSelectEvent}
           onSelectSlot={addNewBooking}
           selectable
-        
+          events={props.array}
         />
       </div>
       <Modal show={show} onHide={handleClose}>

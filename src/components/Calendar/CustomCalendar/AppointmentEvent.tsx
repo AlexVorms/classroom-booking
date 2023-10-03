@@ -12,7 +12,7 @@ export default function AppointmentEvent({
 }: {
   appointment: Appointment;
 }) {
-  const { location, status, resource } = appointment;
+  const { title, status} = appointment;
   const background = EVENT_STATUS_COLORS[status as AppointmentStatusCode];
 
   return (
@@ -23,10 +23,10 @@ export default function AppointmentEvent({
       <div style={{ marginLeft:10, background:'#E9EFFF', height:"100%"}}>
     <div style={{alignItems:"center !important", justifyContent:"space-between"}}>
       <div>
-        <div style={{position:"absolute",top:"10px", left:"20px", fontWeight:'700'}}>{location}</div>
+        <div style={{position:"absolute",top:"10px", left:"20px", fontWeight:'700'}}>{title}</div>
       </div>
       <div>
-        <div style={{position:"absolute",top:"80px", left:"20px"}}>{resource}</div>
+        <div style={{position:"absolute",top:"80px", left:"20px"}}></div>
       </div>
     </div>
    
