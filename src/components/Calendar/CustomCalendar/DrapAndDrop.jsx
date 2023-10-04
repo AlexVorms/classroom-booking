@@ -1,25 +1,24 @@
 import React, { useCallback, useState, useMemo, Fragment } from 'react'
-import PropTypes from 'prop-types'
-import { Calendar, Views, DateLocalizer } from 'react-big-calendar'
-import {EVENTS} from './CustomCalendar.constants'
-import CustomCalendar from './CustomCalendar'
-import ModalForDetails from '../ModalForCalendar/ModalForDetails'
 
+import { Calendar as BigCalendar } from '../Calendar'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import {Form, Col, Row} from 'react-bootstrap'
+import { momentLocalizer } from 'react-big-calendar'
+import moment from 'moment'
+import AppointmentEvent from "./AppointmentEvent";
+import ModalForLessonDetails from '../ModalForCalendar/ModalForDetails';
 
+const localizer = momentLocalizer(moment)
 export default function DragAndDrop(props) {
-  console.log(props)
-  const [show, setShow] = useState(false);
+
+  const [modalShow, setModalShow] = useState(false);
+  const[lessonEvent, setEvent] = useState(undefined);
   const [show1, setShow1] = useState(false);
 const[timeout, setTimeout] = useState(Date.now());
 const[timeStart, setTime] = useState(Date.now());
 const [timeEnd, setTimeEnd] = useState(Date.now());
-  const handleClose = () => setShow(false);
-  const handleShow = (event) => {
-    setShow(true)
-  };
+  
  
   function convert(str) {
     var date = new Date(str)
@@ -45,7 +44,10 @@ const [timeEnd, setTimeEnd] = useState(Date.now());
 
 
   const handleSelectEvent = useCallback(
-    (event) => handleShow(event),
+    (event) => {
+      setModalShow(true)
+      setEvent(event)
+    },
     []
   )
 
@@ -53,40 +55,59 @@ const [timeEnd, setTimeEnd] = useState(Date.now());
     (event) => handleShow1(event),
     []
   )
+ 
+  const array2 = []
+  const functin = () =>{
+      props.array.map((lesson) => {
+        const l = {
+          start: moment(lesson.start).toDate(),
+          end: moment(lesson.end).toDate(),
+          title: lesson.title,
+          id: lesson.id,
+        type: lesson.type,
+        lessonNumber: lesson.number,
+        lessonType: lesson.lessonType,
+        professor:{
+          id:lesson.professor.id,
+          fullName:lesson.professor.fullName,
+          shortName:lesson.professor.shortName
+        },
+        audience:{
+          id:lesson.audience.id,
+          name:lesson.audience.name,
+          shortName:lesson.audience.shortName,
+          building:{
+              id:lesson.audience.building.id,
+              name:lesson.audience.building.name,
+              address:lesson.audience.building.address,
+              latitude: lesson.audience.building.latitude,
+              longitude: lesson.audience.building.longitude
+          }
+      }
+        }
+        array2.push(l)
+      })
+      return array2;
+  }
+  const components = {
+    event: ({ event }) => {
+        return <AppointmentEvent appointment={event} />;
+    },
+  };
   const today = new Date();
   return (
     <Fragment>
       <div className="height600">
-        <CustomCalendar
-        step={30}
+
+        <BigCalendar localizer={localizer} events = {functin()} step={30}
           onSelectEvent={handleSelectEvent}
           onSelectSlot={addNewBooking}
           selectable
-          events={props.array}
-        />
+          components={components}>
+          </BigCalendar>
       </div>
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton style={{ color:"#5161ce"}}>
-          <Modal.Title style={{ marginLeft:"10px",fontSize:"25px"}}>Детали пары</Modal.Title>
-        </Modal.Header>
-        <Modal.Body style={{fontSize:"17px",color:"gray"}}>
-          <div><img src='./tv.png'></img>    Предмет: Английский язык</div>
-          <img src='./ver.png'></img>
-          <div><img src='./company.png'></img>    Аудитория: 202(2)</div>
-          <img src='./ver.png'></img>
-          <div><img src='./map.png'></img>    Корпус: корпус №4</div>
-          <img src='./ver.png'></img>
-          <div> <img src='./user.png'></img>    Преподаватель: Хакимова А.А.</div>
-          <img src='./ver.png'></img>
-          <div><img src='./time.png'></img>    Время: 10:35 - 12:10</div>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="outline-secondary" onClick={handleClose}>
-            Закрыть
-          </Button>
-        </Modal.Footer>
-      </Modal>
-
+      <ModalForLessonDetails show={modalShow} onHide={()=>setModalShow(false)} Event = {lessonEvent}></ModalForLessonDetails>
+      
 
 
       <Modal show={show1} onHide={handleClose1}  >

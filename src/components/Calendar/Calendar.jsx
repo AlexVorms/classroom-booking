@@ -27,7 +27,7 @@ import { Container } from "react-bootstrap";
 
   const localizer = momentLocalizer(moment);
   
-  export const Calendar = (props: Omit<CalendarProps, "localizer">) => {
+  export const Calendar = (props) => {
     const { defaultDate, views } = useMemo(
       () => ({
         defaultDate: new Date(2015, 3, 1),
@@ -42,7 +42,6 @@ import { Container } from "react-bootstrap";
       <Container style={{marginTop:"20px"}}>
       <BigCalendar
         {...props}
-       
         localizer={localizer}
         messages={messages} 
         defaultDate={new Date()}
