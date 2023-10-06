@@ -1,19 +1,21 @@
 import React, { useCallback, useState, useMemo, Fragment } from 'react'
 
 import { Calendar as BigCalendar } from '../Calendar'
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import {Form, Col, Row} from 'react-bootstrap'
+
 import { momentLocalizer } from 'react-big-calendar'
 import moment from 'moment'
 import AppointmentEvent from "./AppointmentEvent";
 import ModalForLessonDetails from '../ModalForCalendar/ModalForDetails';
+import ModalForCreatingBooking from '../ModalForCalendar/ModalForCreateBooking';
+import BookingEvent from './BookingEvent';
 
 const localizer = momentLocalizer(moment)
 export default function DragAndDrop(props) {
 
   const [modalShow, setModalShow] = useState(false);
+  const [BookingModalShow, setBookingModalShow] = useState(false);
   const[lessonEvent, setEvent] = useState(undefined);
+  const[bookingEvent, setBookingEvent] = useState(undefined);
   const [show1, setShow1] = useState(false);
 const[timeout, setTimeout] = useState(Date.now());
 const[timeStart, setTime] = useState(Date.now());
@@ -52,14 +54,47 @@ const [timeEnd, setTimeEnd] = useState(Date.now());
   )
 
   const addNewBooking = useCallback(
-    (event) => handleShow1(event),
+    (event) => {
+      setBookingModalShow(true)
+      setBookingEvent(event)
+    },
     []
   )
  
   const array2 = []
   const functin = () =>{
       props.array.map((lesson) => {
-        const l = {
+        if(lesson.type === "LESSON"){
+          let l = {
+            start: moment(lesson.start).toDate(),
+            end: moment(lesson.end).toDate(),
+            title: lesson.title,
+            id: lesson.id,
+          type: lesson.type,
+          lessonNumber: lesson.number,
+          lessonType: lesson.lessonType,
+          professor:{
+            id:lesson.professor.id,
+            fullName:lesson.professor.fullName,
+            shortName:lesson.professor.shortName
+          },
+          audience:{
+            id:lesson.audience.id,
+            name:lesson.audience.name,
+            shortName:lesson.audience.shortName,
+            building:{
+                id:lesson.audience.building.id,
+                name:lesson.audience.building.name,
+                address:lesson.audience.building.address,
+                latitude: lesson.audience.building.latitude,
+                longitude: lesson.audience.building.longitude
+                  }
+             }
+          }
+          array2.push(l)
+      }
+      else{
+        let l = {
           start: moment(lesson.start).toDate(),
           end: moment(lesson.end).toDate(),
           title: lesson.title,
@@ -68,9 +103,9 @@ const [timeEnd, setTimeEnd] = useState(Date.now());
         lessonNumber: lesson.number,
         lessonType: lesson.lessonType,
         professor:{
-          id:lesson.professor.id,
-          fullName:lesson.professor.fullName,
-          shortName:lesson.professor.shortName
+          id:null,
+          fullName:null,
+          shortName:null
         },
         audience:{
           id:lesson.audience.id,
@@ -82,16 +117,22 @@ const [timeEnd, setTimeEnd] = useState(Date.now());
               address:lesson.audience.building.address,
               latitude: lesson.audience.building.latitude,
               longitude: lesson.audience.building.longitude
-          }
-      }
+                }
+           }
         }
         array2.push(l)
+      }
+        
       })
       return array2;
   }
   const components = {
     event: ({ event }) => {
-        return <AppointmentEvent appointment={event} />;
+        if(event.type === "LESSON"){
+        return <AppointmentEvent appointment={event} />;}
+        else{
+          return <BookingEvent appointment = {event}></BookingEvent>
+        }
     },
   };
   const today = new Date();
@@ -109,75 +150,8 @@ const [timeEnd, setTimeEnd] = useState(Date.now());
       <ModalForLessonDetails show={modalShow} onHide={()=>setModalShow(false)} Event = {lessonEvent}></ModalForLessonDetails>
       
 
-
-      <Modal show={show1} onHide={handleClose1}  >
-      <Modal.Header closeButton style={{ color:"#7367F0"}}>
-          <Modal.Title style={{ marginLeft:"10px",fontSize:"25px", textAlign:"center"}}>Забронировать аудиторию</Modal.Title>
-        </Modal.Header>
-        <Modal.Body style={{}}>
-          <Form>
-         
-          <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-            <Row>
-              <Col sm="1">
-              <img src='./time.png'></img>
-              </Col>
-              <Col sm="6">
-              <Form.Control type="date" value={timeout} onChange={(e) => setTimeout(convert(e.target.value))} style={{borderColor:"#7367F0", color:"#7367F0"}}/>
-              </Col>
-              <Col>
-              <input type="time" id="appt" name="appt" min="08:00" max="21:00" value={timeStart} onChange={(e) => setTime(e.target.value)} required style={{border:"none"}}/>
-              </Col>
-              <Col>
-              <input type="time" id="appt" name="appt" min="08:00" max="21:00" value={timeEnd} onChange={(e) => setTimeEnd(e.target.value)} required style={{border:"none"}} />
-              </Col>
-            </Row>
-        </Form.Group>
-       
-        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Row>
-                <Col sm="1">
-                <img src='./company.png'></img>
-                </Col>
-                <Col sm="10">
-                <Form.Control plaintext readOnly defaultValue="Аудитория №2" style={{ color:"#7367F0"}}/>
-                </Col>
-              </Row>
-           
-          </Form.Group>
-
-       <Form.Group  style={{marginTop:"20px", color:"#7367F0"}}>
-        <Row>
-           <Col sm="1">
-              <img src='./edit.png'></img>
-              </Col>
-          <Col>
-          <div>Название мероприятия:</div>
-          </Col>
-          <Col>
-          <Form.Control></Form.Control>
-          </Col>
-        </Row>
-       </Form.Group>
-
-       <Form.Group style={{marginTop:"20px", color:"#7367F0"}}>
-        <Row>
-        <Col sm="1">
-              <img src='./user.png'></img>
-              </Col>
-          <Col sm="5">
-          <div>Кол-во участников:</div>
-          </Col>
-          <Col sm="6">
-          <Form.Control></Form.Control>
-          </Col>
-        </Row>
-       </Form.Group>
-
-          </Form>
-        </Modal.Body>
-  
-      </Modal>
+      <ModalForCreatingBooking show = {BookingModalShow} onHide={()=>setBookingModalShow(false)} Event = {bookingEvent}></ModalForCreatingBooking>
+ 
     </Fragment>
   )
 }

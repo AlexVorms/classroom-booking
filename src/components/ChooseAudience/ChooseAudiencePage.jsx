@@ -33,11 +33,11 @@ class ChooseAudiencePage extends React.Component {
                     <Card.Body>
                         
                             
-                            <div style={{textAlign:"center", color:"#5161ce", fontSize: "25px"}}>Расписание аудиторий</div> 
+                            <div style={{textAlign:"center", color:"#5161ce", fontSize: "30px", fontWeight:"600"}}>Расписание аудиторий</div> 
                           
                        
                            
-                            <Form.Select aria-label="Default select example" onChange={this.callThis} style={{fontWeight:"600"}}>
+                            <Form.Select aria-label="Default select example" onChange={this.callThis} style={{fontWeight:"600", color:"grey"}}>
                             <option>Выбрать корпус</option>
                             {this.props.buildings.map((build) => {
                     return <option value={build.id} key = {build.id}>{build.name}</option>  
@@ -47,7 +47,7 @@ class ChooseAudiencePage extends React.Component {
                       
                     
                         
-                         {this.state.getAudiences?<div> <Form.Select aria-label="Default select example" style={{marginTop:"20px",fontWeight:"600" }} onChange={this.chooseAudience}>
+                         {this.state.getAudiences?<div> <Form.Select aria-label="Default select example" style={{marginTop:"20px",fontWeight:"600", color:"grey" }} onChange={this.chooseAudience}>
                             <option>Выбрать аудиторию</option>
                             {this.props.audiences.map((audience) => {
                     return <option value={audience.id} key = {audience.id}>{audience.name}</option>})}
