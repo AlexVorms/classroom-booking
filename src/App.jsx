@@ -7,6 +7,7 @@ import MyBookingPage from './components/MyBookingPage/MyBookingPage';
 
 import ChooseAudienceContainer from './components/ChooseAudience/ChooseAudienceContainer';
 import ShedulePageContainer from './components/Calendar/ShedulePageContainer';
+import MyBookingPageContainer from './components/MyBookingPage/MyBookingPageContainer';
 
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
     <Routes>
       <Route  path="/calendar/:id" element={<ShedulePageContainer/>} ></Route>
       <Route  path="/" element={<HomePage/>} ></Route>
-      <Route  path="/mybooking" element={<MyBookingPage/>} ></Route>
+      <Route  path="/mybooking" element={<MyBookingPageContainer/>} ></Route>
       <Route path="/audience" element={<ChooseAudienceContainer/>}></Route>
       </Routes>
     </BrowserRouter>

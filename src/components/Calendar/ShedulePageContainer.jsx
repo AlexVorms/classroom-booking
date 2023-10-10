@@ -1,7 +1,7 @@
 import React from "react"
 import DragAndDrop from "./CustomCalendar/DrapAndDrop"
 import { connect } from "react-redux"
-import { getSheduleThunk } from "../../reducers/SheduleReducer"
+import { getSheduleThunk, AddBookingThunk } from "../../reducers/SheduleReducer"
 import { useParams } from 'react-router-dom';
 
 export function withRouter(Children){
@@ -37,8 +37,9 @@ class ShedulePageContainer extends React.Component {
 
 let mapStateToProps = (state) =>{
     return {
-       array: state.shedulePage.array
+       array: state.shedulePage.array,
+       audiences: state.buildingPage.audiences
     }
 }
 let WithUrlDataContainerComponent = withRouter(ShedulePageContainer);
-export default connect(mapStateToProps, {getSheduleThunk})(WithUrlDataContainerComponent)
+export default connect(mapStateToProps, {getSheduleThunk, AddBookingThunk})(WithUrlDataContainerComponent)

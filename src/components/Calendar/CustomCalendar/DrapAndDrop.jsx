@@ -16,35 +16,6 @@ export default function DragAndDrop(props) {
   const [BookingModalShow, setBookingModalShow] = useState(false);
   const[lessonEvent, setEvent] = useState(undefined);
   const[bookingEvent, setBookingEvent] = useState(undefined);
-  const [show1, setShow1] = useState(false);
-const[timeout, setTimeout] = useState(Date.now());
-const[timeStart, setTime] = useState(Date.now());
-const [timeEnd, setTimeEnd] = useState(Date.now());
-  
- 
-  function convert(str) {
-    var date = new Date(str)
-    
-      var mnth = ("0" + (date.getMonth() + 1)).slice(-2),
-      day = ("0" + date.getDate()).slice(-2),
-      hours = ("0" + date.getHours()).slice(-2),
-      minutes = ("0" + date.getMinutes()).slice(-2);
-      setTime([hours, minutes].join(":"))
-    return [date.getFullYear(), mnth, day].join("-");
-  }
-
-  const handleClose1 = () => setShow1(false);
-
-  const handleShow1 = (event) => {
-    setTimeout(convert(event.start))
-    var date = new Date(event.end),
-    hours = ("0" + date.getHours()).slice(-2),
-    minutes = ("0" + date.getMinutes()).slice(-2);
-    setTimeEnd([hours, minutes].join(":"))
-    setShow1(true)
-  };
-
-
   const handleSelectEvent = useCallback(
     (event) => {
       setModalShow(true)
@@ -52,11 +23,21 @@ const [timeEnd, setTimeEnd] = useState(Date.now());
     },
     []
   )
-
+    const GetAudienceName = () =>{
+      var name = ''
+      var id = props.match.params.id;
+      props.audiences.map((audience) =>{
+        if(audience.id === id){
+          name = audience.name
+        }
+      })
+      return name;
+    }
   const addNewBooking = useCallback(
     (event) => {
       setBookingModalShow(true)
       setBookingEvent(event)
+      console.log(props)
     },
     []
   )
@@ -64,7 +45,7 @@ const [timeEnd, setTimeEnd] = useState(Date.now());
   const array2 = []
   const functin = () =>{
       props.array.map((lesson) => {
-        if(lesson.type === "LESSON"){
+        if(lesson.lessonType !== "BOOKING"){
           let l = {
             start: moment(lesson.start).toDate(),
             end: moment(lesson.end).toDate(),
@@ -128,18 +109,16 @@ const [timeEnd, setTimeEnd] = useState(Date.now());
   }
   const components = {
     event: ({ event }) => {
-        if(event.type === "LESSON"){
+        if(event.lessonType !== "BOOKING"){
         return <AppointmentEvent appointment={event} />;}
         else{
           return <BookingEvent appointment = {event}></BookingEvent>
         }
     },
   };
-  const today = new Date();
   return (
     <Fragment>
       <div className="height600">
-
         <BigCalendar localizer={localizer} events = {functin()} step={30}
           onSelectEvent={handleSelectEvent}
           onSelectSlot={addNewBooking}
@@ -150,7 +129,7 @@ const [timeEnd, setTimeEnd] = useState(Date.now());
       <ModalForLessonDetails show={modalShow} onHide={()=>setModalShow(false)} Event = {lessonEvent}></ModalForLessonDetails>
       
 
-      <ModalForCreatingBooking show = {BookingModalShow} onHide={()=>setBookingModalShow(false)} Event = {bookingEvent}></ModalForCreatingBooking>
+      <ModalForCreatingBooking show = {BookingModalShow} onHide={()=>setBookingModalShow(false)} Event = {bookingEvent} audience={GetAudienceName()} AudienceId = {props.match.params.id} AddBookingThunk={props.AddBookingThunk}></ModalForCreatingBooking>
  
     </Fragment>
   )

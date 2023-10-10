@@ -68,16 +68,13 @@
   font-size: 20px;
 }
 
-[type="time"]{
-  color:#16A34A;
-  border: none !important;
+.ant-modal-title {
+  color:#16A34A !important;
+  font-size: 25px !important;
 }
-[type="time"]::-webkit-inner-spin-button {
-  display: none;
-  border: none !important;
-  
-}
-[type="time"]::-webkit-calendar-picker-indicator {
-  opacity: 0;
-  border: none !important;
-}
+.ant-modal, .ant-modal-content {
+ 
+  width: 50vw;
+  position: absolute;
+  left:200px;
+ }

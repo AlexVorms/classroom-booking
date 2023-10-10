@@ -4,33 +4,6 @@ const GET_SHEDULE = "GET_SHEDULE";
 
 let initialState = {
    array: [],
-//    { 
-//     date: new Date(),
-//     type: "",
-//     id: "",
-//     lessonNumber: 0, 
-//     starts: 0,
-//     ends: 0,
-//     title: "",
-//     lessonType: "",
-//     professor:{
-//         id:"",
-//         fullName:"",
-//         shortName:""
-//      },
-//     audience:{
-//         id:"",
-//         name:"",
-//         shortName:"",
-//         building:{
-//             id:"",
-//             name:"",
-//             address:"",
-//             latitude: 0.0,
-//             longitude: 0.0
-//             }
-//         }
-//     }
 };
 
 const SheduleReducer = (state = initialState, action) => {
@@ -56,4 +29,11 @@ export function getSheduleThunk(id, dateFrom, dateTo){
     }
 }
 
+export function AddBookingThunk(data){
+    return(dispatch)=>{
+        API.AddBooking(data).then(response =>{
+            console.log(response)
+        } )
+    }
+}
 export default SheduleReducer;

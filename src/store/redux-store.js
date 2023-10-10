@@ -2,10 +2,12 @@ import { legacy_createStore as createStore, combineReducers, applyMiddleware } f
 import ThunkMiddleware from "redux-thunk";
 import buildingReducer from "../reducers/BuildingReducer";
 import SheduleReducer from "../reducers/SheduleReducer";
+import BookingReducer from "../reducers/MyBookingReducer";
 
 let reducers = combineReducers({
     buildingPage: buildingReducer,
-    shedulePage: SheduleReducer
+    shedulePage: SheduleReducer,
+    bookingPage: BookingReducer
 });
 
 let store = createStore(reducers, applyMiddleware(ThunkMiddleware));

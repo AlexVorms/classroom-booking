@@ -1,110 +1,168 @@
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
 import {Form, Col, Row} from 'react-bootstrap'
 import { useState} from 'react'
+import React from 'react';
+import { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+import { TimePicker } from 'antd';
+import { Button, Modal } from 'antd';
+import { render } from '@testing-library/react';
 
-function ModalForCreatingBooking(props){
-    const[timeout, setTimeout] = useState(Date.now());
-const[timeStart, setTime] = useState(Date.now());
-const [timeEnd, setTimeEnd] = useState(Date.now());
-const [show1, setShow1] = useState(false);
 
-function convertDate(str) {
-    var date = new Date(str)
-      var mnth = ("0" + (date.getMonth() + 1)).slice(-2),
-      day = ("0" + date.getDate()).slice(-2)
-    return [date.getFullYear(), mnth, day].join("-");
+class ModalForCreatingBooking extends React.Component{
+    constructor(props) {
+      super(props);
+      this.state = {
+        timeout:Date.now(),
+        timeStart:"18:10",
+        timeEnd:"18:10",
+        text: "",
+        title:"",
+        participantCount: 0
+      };
+    this.convert = this.convert.bind(this);
+    this.StartConvert = this.StartConvert.bind(this);
+    this.EndConvert = this.EndConvert.bind(this);
+    this.AddBooking = this.AddBooking.bind(this);
   }
+      componentDidMount(){
+        console.log(this.props)
+        if(this.props.Event !== undefined){
+        this.setState({timeout:this.convert(this.props.Event.start)});
+        }
+  }
+        convert(str) {
+          var date = new Date(str),
+          mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+          day = ("0" + date.getDate()).slice(-2);
+          this.setState({timeout:[date.getFullYear(), mnth, day].join("-")});
+        }
+        StartConvert(event) {
 
-function convertTime(str){
-    var date = new Date(str),
-    hours = ("0" + date.getHours()).slice(-2),
-    minutes = ("0" + date.getMinutes()).slice(-2);
-    return [hours, minutes].join(":")
-}
+          if(event !== null){
 
-  const handleShow1 = (event) => {
-    
-    var date = new Date(event.end),
-    hours = ("0" + date.getHours()).slice(-2),
-    minutes = ("0" + date.getMinutes()).slice(-2);
-    setTimeEnd([hours, minutes].join(":"))
-    setShow1(true)
-  };
+            var date = new Date(event.$d),
+            hours = ("0" + date.getHours()).slice(-2),
+            minutes = ("0" + date.getMinutes()).slice(-2);
 
+            this.setState({timeStart:[hours, minutes].join(":")});
+          }
+          else{
+            this.setState({timeStart:"00:00"});
+          }
+        }
 
-return(
-<>
-{props.Event != undefined?
-<Modal size="lg" show={props.show} onHide={props.onHide}  >
-      <Modal.Header closeButton style={{ color:"white", background:"#16A34A"}}>
-          <Modal.Title style={{ marginLeft:"10px",fontSize:"25px", textAlign:"center"}}>Забронировать аудиторию</Modal.Title>
-        </Modal.Header>
-        <Modal.Body style={{}}>
-          <Form>
-         
-          <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-            <Row>
-              <Col sm="1">
-              <img src='../../ic32-calendar.png'></img>
-              </Col>
-              <Col sm="6">
-              <Form.Control type="date" value={ convertDate(props.Event.start)} onChange={(e) => setTimeout(convertDate(e.target.value))} style={{borderColor:"gray", color:"gray", fontSize:'600'}}/>
-              </Col>
-              <Col>
-              <input type="time" id="appt" name="appt" min="08:00" max="21:00" value={convertTime(props.Event.start)} onChange={(e) => setTime(e.target.value)} required style={{border:"none"}}/>
-              </Col>
-              <Col>
-              <input type="time" id="appt" name="appt" min="08:00" max="21:00" value={convertTime(props.Event.end)} onChange={(e) => setTimeEnd(e.target.value)} required style={{border:"none"}} />
-              </Col>
-            </Row>
-        </Form.Group>
-       
-        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Row>
+        EndConvert(event) {
+          if(event !== null){
+              var date = new Date(event.$d),
+              hours = ("0" + date.getHours()).slice(-2),
+              minutes = ("0" + date.getMinutes()).slice(-2);
+            
+              this.setState({timeEnd:[hours, minutes].join(":")});
+          }
+          else{
+            this.setState({timeEnd:"00:00"});
+          }
+        }
+        AddBooking(){
+          var date = {
+            AudienceId: this.props.AudienceId,
+            date: this.state.timeout,
+            title: this.state.title,
+            participantCount: 20,
+            start: this.state.timeStart,
+            end: this.state.timeEnd,
+            userId: "31298ace-27ed-4b8c-82e8-47dfa05c58e0",
+            description: this.state.text
+          }
+          console.log(date);
+          this.props.AddBookingThunk(date)
+        }
+    render(){
+      return(
+        <>
+        {this.props.Event != undefined?
+        <Modal  open={this.props.show} onOk={this.AddBooking} 
+        onCancel={this.props.onHide}  title = "Забронировать аудиторию"
+        style={{ top: 20 }}>
+                  <Form style={{ marginTop: '20px' }}>
+                  <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                    <Row>
+                      <Col sm="1">
+                      <img src='../../ic32-calendar.png'></img>
+                      </Col>
+                      <Col sm="6">
+                      <Form.Control type="date" value={this.state.timeout} onChange={(e) => this.convert(e.target.value)} style={{borderColor:"gray", color:"gray", fontSize:'600'}}/>
+                      </Col>
+                      <Col>
+                      <TimePicker  efaultValue={dayjs(this.state.timeStart, 'HH:mm')} onChange={(e) => this.StartConvert(e)} format={'HH:mm'} />
+                      </Col>
+                      <Col>
+                      <TimePicker  efaultValue={dayjs(this.state.timeEnd, 'HH:mm')} onChange={(e) => this.EndConvert(e)} format={'HH:mm'} />
+                      </Col>
+              
+                    </Row>
+                </Form.Group>
+              
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                      <Row>
+                        <Col sm="1">
+                        <img src='../../ic32-company.png'></img>
+                        </Col>
+                        <Col sm="10">
+                        <Form.Control plaintext readOnly defaultValue={this.props.audience} style={{ color:"grey", fontWeight:"600", fontSize:"20px"}}/>
+                        </Col>
+                      </Row>
+                  
+                  </Form.Group>
+
+              <Form.Group  style={{marginTop:"20px", color:"grey", fontWeight:"600", fontSize:"20px"}}>
+                <Row>
+                  <Col sm="1">
+                      <img src='../../ic32-edit.png'></img>
+                      </Col>
+                  <Col sm="4">
+                  <div>Название мероприятия:</div>
+                  </Col>
+                  <Col sm="7">
+                  <Form.Control onChange={(e) => this.setState({title: e.target.value})}></Form.Control>
+                  </Col>
+                </Row>
+              </Form.Group>
+
+              <Form.Group style={{marginTop:"20px", color:"grey", fontWeight:"600", fontSize:"20px"}}>
+                <Row>
                 <Col sm="1">
-                <img src='../../ic32-company.png'></img>
-                </Col>
-                <Col sm="10">
-                <Form.Control plaintext readOnly defaultValue="Аудитория №2" style={{ color:"grey", fontWeight:"600", fontSize:"20px"}}/>
-                </Col>
-              </Row>
-           
-          </Form.Group>
+                      <img src='../../ic32-user.png'></img>
+                      </Col>
+                  <Col sm="4">
+                  <div onChange={(e) => this.setState({participantCount: Number(e.target.value)})}>Кол-во участников:</div>
+                  </Col>
+                  <Col sm="7">
+                  <Form.Control></Form.Control>
+                  </Col>
+                </Row>
+              </Form.Group>
 
-       <Form.Group  style={{marginTop:"20px", color:"grey", fontWeight:"600", fontSize:"20px"}}>
-        <Row>
-           <Col sm="1">
-              <img src='../../ic32-edit.png'></img>
-              </Col>
-          <Col>
-          <div>Название мероприятия:</div>
-          </Col>
-          <Col>
-          <Form.Control></Form.Control>
-          </Col>
-        </Row>
-       </Form.Group>
-
-       <Form.Group style={{marginTop:"20px", color:"grey", fontWeight:"600", fontSize:"20px"}}>
-        <Row>
-        <Col sm="1">
-              <img src='../../ic32-user.png'></img>
-              </Col>
-          <Col sm="5">
-          <div>Кол-во участников:</div>
-          </Col>
-          <Col sm="6">
-          <Form.Control></Form.Control>
-          </Col>
-        </Row>
-       </Form.Group>
-
-          </Form>
-        </Modal.Body>
-  
-      </Modal> : <></>}
-</>)
-}
-
+              <Form.Group style={{marginTop:"20px", color:"grey", fontWeight:"600", fontSize:"20px"}}>
+                <Row>
+                <Col sm="1">
+                      <img src='../../ic32-user.png'></img>
+                      </Col>
+                  <Col sm="4">
+                  <div>Описание мероприятия:</div>
+                  </Col>
+                  <Col sm="7">
+                  <Form.Control as="textarea" rows={3} onChange={(e) => this.setState({text: e.target.value})} />
+                  </Col>
+                </Row>
+              </Form.Group>
+              
+                  </Form>
+          
+                </Modal> : <></>}
+              </>
+            )
+        }
+    }
 export default ModalForCreatingBooking;
