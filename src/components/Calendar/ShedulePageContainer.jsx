@@ -38,7 +38,8 @@ class ShedulePageContainer extends React.Component {
 let mapStateToProps = (state) =>{
     return {
        array: state.shedulePage.array,
-       audiences: state.buildingPage.audiences
+       audiences: state.buildingPage.audiences,
+       isLoading : state.shedulePage.isLoading
     }
 }
 let WithUrlDataContainerComponent = withRouter(ShedulePageContainer);

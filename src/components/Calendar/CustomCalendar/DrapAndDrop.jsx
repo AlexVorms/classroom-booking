@@ -8,14 +8,15 @@ import AppointmentEvent from "./AppointmentEvent";
 import ModalForLessonDetails from '../ModalForCalendar/ModalForDetails';
 import ModalForCreatingBooking from '../ModalForCalendar/ModalForCreateBooking';
 import BookingEvent from './BookingEvent';
-
+import LoadSpinner from '../../other/LoadSpinner';
+import {Card} from 'react-bootstrap'
 const localizer = momentLocalizer(moment)
 export default function DragAndDrop(props) {
 
   const [modalShow, setModalShow] = useState(false);
-  const [BookingModalShow, setBookingModalShow] = useState(false);
   const[lessonEvent, setEvent] = useState(undefined);
-  const[bookingEvent, setBookingEvent] = useState(undefined);
+  const[changeDate, setChangeDate] = useState(false);
+
   const handleSelectEvent = useCallback(
     (event) => {
       setModalShow(true)
@@ -33,14 +34,7 @@ export default function DragAndDrop(props) {
       })
       return name;
     }
-  const addNewBooking = useCallback(
-    (event) => {
-      setBookingModalShow(true)
-      setBookingEvent(event)
-      console.log(props)
-    },
-    []
-  )
+
  
   const array2 = []
   const functin = () =>{
@@ -116,22 +110,52 @@ export default function DragAndDrop(props) {
         }
     },
   };
+
+  const ChangeWeek =(time) =>{
+    var curr = new Date(time); 
+    var first = curr.getDate() - curr.getDay() + 1; // First day is the day of the month - the day of the week
+    var last = first + 6; // last day is the first day + 6
+    var firstday = new Date(curr.setDate(first)).toUTCString();
+    var lastday = new Date(curr.setDate(last)).toUTCString();
+    console.log(firstday, lastday)
+    setChangeDate(true);
+    props.getSheduleThunk(props.match.params.id, convert(firstday), convert(lastday))
+}
+
+const convert = (str) =>{
+  var date = new Date(str)
+    var mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+    day = ("0" + date.getDate()).slice(-2)
+  return [date.getFullYear(), mnth, day].join("-");
+}
+
   return (
-    <Fragment>
+    <div>
+      <Fragment>
+      {(props.isLoading && !changeDate)? <LoadSpinner></LoadSpinner> :
       <div className="height600">
         <BigCalendar localizer={localizer} events = {functin()} step={30}
+         onNavigate={(e) => {ChangeWeek(e)}}
           onSelectEvent={handleSelectEvent}
-          onSelectSlot={addNewBooking}
           selectable
-          components={components}>
+          components={components}
+          audience={GetAudienceName()} 
+          AudienceId = {props.match.params.id}
+         AddBookingThunk={props.AddBookingThunk}>
           </BigCalendar>
       </div>
-      <ModalForLessonDetails show={modalShow} onHide={()=>setModalShow(false)} Event = {lessonEvent}></ModalForLessonDetails>
+    }
+       <ModalForLessonDetails show={modalShow} onHide={()=>setModalShow(false)} Event = {lessonEvent}></ModalForLessonDetails>
       
 
-      <ModalForCreatingBooking show = {BookingModalShow} onHide={()=>setBookingModalShow(false)} Event = {bookingEvent} audience={GetAudienceName()} AudienceId = {props.match.params.id} AddBookingThunk={props.AddBookingThunk}></ModalForCreatingBooking>
- 
-    </Fragment>
+       {/* {isEvent? <ModalForCreatingBooking show = {BookingModalShow} onHide={()=>setBookingModalShow(false)}
+        Event = {bookingEvent} audience={GetAudienceName()} 
+        Start = {convert(bookingEvent.Start)}
+        AudienceId = {props.match.params.id} AddBookingThunk={props.AddBookingThunk}>
+        </ModalForCreatingBooking>: <></>} */}
+      </Fragment>
+    
+   </div>
   )
 }
 

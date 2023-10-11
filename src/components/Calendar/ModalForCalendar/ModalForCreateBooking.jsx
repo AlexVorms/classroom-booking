@@ -7,13 +7,13 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { TimePicker } from 'antd';
 import { Button, Modal } from 'antd';
 import { render } from '@testing-library/react';
-
+import { useEffect } from 'react';
 
 class ModalForCreatingBooking extends React.Component{
     constructor(props) {
       super(props);
       this.state = {
-        timeout:Date.now(),
+        timeout:"2023-10-10",
         timeStart:"18:10",
         timeEnd:"18:10",
         text: "",
@@ -24,12 +24,6 @@ class ModalForCreatingBooking extends React.Component{
     this.StartConvert = this.StartConvert.bind(this);
     this.EndConvert = this.EndConvert.bind(this);
     this.AddBooking = this.AddBooking.bind(this);
-  }
-      componentDidMount(){
-        console.log(this.props)
-        if(this.props.Event !== undefined){
-        this.setState({timeout:this.convert(this.props.Event.start)});
-        }
   }
         convert(str) {
           var date = new Date(str),

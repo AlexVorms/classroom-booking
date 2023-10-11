@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 class NewItem extends React.Component {
     constructor(props) {
@@ -55,7 +56,9 @@ class NewItem extends React.Component {
                         
                     </ol>
                     <div className="widget-49-meeting-action">
+                    <NavLink to = {'/bookingDetail/' + this.props.booking.id} style={{ textDecoration: 'none', color: 'inherit' }}> 
                         <a href="#" className="btn btn-sm btn-flash-border-primary">Детали</a>
+                        </NavLink>
                     </div>
                 </div>
             </div>

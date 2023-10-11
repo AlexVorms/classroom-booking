@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { NavLink } from 'react-router-dom';
 class CanseledItem extends React.Component {
     constructor(props) {
         super(props);
@@ -55,7 +55,9 @@ class CanseledItem extends React.Component {
                         </ol>
                         
                         <div className="widget-49-meeting-action">
-                            <a href="#" className="btn btn-sm btn-flash-border-warning">Детали</a>
+                        <NavLink to = {'/bookingDetail/' + this.props.booking.id} style={{ textDecoration: 'none', color: 'inherit' }}> 
+                        <a href="#" className="btn btn-sm btn-flash-border-primary">Детали</a>
+                        </NavLink>
                         </div>
                     </div>
                 </div>

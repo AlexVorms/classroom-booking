@@ -1,4 +1,5 @@
 import { API } from "../Api/Api";
+import {setErrorToast, setSuccessToast} from "./ToasterReduser";
 
 const GET_BOOKINGS = 'GET_BOOKINGS';
 const SET_LOADING_BOOKINGS = "SET_LOADING_BOOKINGS";
@@ -30,9 +31,15 @@ export const setLoadingBookingPageAC = (result) => ({type:SET_LOADING_BOOKINGS, 
 
  export const getMyBookingsThunk =() =>(dispatch) =>{
         dispatch(setLoadingBookingPageAC(true))
-        API.getBookings().then(data => {
-            dispatch(setBookingsAC(data))
+        API.getBookings().then(response => {
+            if(response.status === 200){
+            dispatch(setBookingsAC(response.data))
             dispatch(setLoadingBookingPageAC(false))
+            }
+            else{
+                dispatch(setErrorToast("Что-то пошло не так"))
+                dispatch(setLoadingBookingPageAC(false))
+            }
         })
         
  }
