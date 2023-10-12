@@ -123,8 +123,9 @@ import { Controller, useForm } from 'react-hook-form';
           userId: "31298ace-27ed-4b8c-82e8-47dfa05c58e0",
           description: data.description
         }
-        console.log(date);
         props.AddBookingThunk(date)
+        setBookingModalShow(false);
+
      };
     return (
       
@@ -143,8 +144,21 @@ import { Controller, useForm } from 'react-hook-form';
 
 
        <Modal  open={BookingModalShow} onOk={handleSubmit(formSubmit)}
-        onCancel={()=>setBookingModalShow(false)}  title = "Забронировать аудиторию"
-        style={{ top: 20 }}>
+        onCancel={()=>setBookingModalShow(false)}
+        style={{ top: 20 }}
+        footer={null}>
+          <Row>
+            <Col sm="1">
+            <hr style={{background:"#16A34A", border: "none", height:"20px"}}></hr>
+            </Col>
+            <Col sm="6">
+            <div style={{color:"#16A34A", fontSize:"26px", marginLeft:"30px", fontWeight:"600"}}> Забронировать аудиторию</div>
+            </Col>
+            <Col sm="5">
+            <hr style={{background:"#16A34A", border: "none", height:"20px"}}></hr>
+            </Col>
+          </Row>
+         
                   <Form style={{ marginTop: '20px' }} noValidate>
                   <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                     <Row>
@@ -263,7 +277,7 @@ import { Controller, useForm } from 'react-hook-form';
               <Form.Group style={{marginTop:"20px", color:"grey", fontWeight:"600", fontSize:"20px"}}>
                 <Row>
                 <Col sm="1">
-                      <img src='../../ic32-user.png'></img>
+                      <img src='../../ic32-comment.png'></img>
                       </Col>
                   <Col sm="4">
                   <div>Описание мероприятия:</div>
@@ -293,9 +307,9 @@ import { Controller, useForm } from 'react-hook-form';
                   </Col>
                 </Row>
               </Form.Group>
-              
+             
                   </Form>
-          
+                  <Button type="dashed" onClick={handleSubmit(formSubmit)} style={{color:"#16A34A", borderColor:"#16A34A", marginLeft:"630px", marginTop:"20px"}}>Забронировать</Button>
                 </Modal>
       </Container>
     );

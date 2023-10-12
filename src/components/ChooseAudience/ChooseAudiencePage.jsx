@@ -29,14 +29,8 @@ class ChooseAudiencePage extends React.Component {
             <div>
             <Container style={{marginTop:"20px"}}>
                  <Card>
-
-                    <Card.Body>
-                        
-                            
+                    <Card.Body>   
                             <div style={{textAlign:"center", color:"#5161ce", fontSize: "30px", fontWeight:"600"}}>Расписание аудиторий</div> 
-                          
-                       
-                           
                             <Form.Select aria-label="Default select example" onChange={this.callThis} style={{fontWeight:"600", color:"grey"}}>
                             <option>Выбрать корпус</option>
                             {this.props.buildings.map((build) => {

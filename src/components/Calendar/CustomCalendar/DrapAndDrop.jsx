@@ -117,7 +117,6 @@ export default function DragAndDrop(props) {
     var last = first + 6; // last day is the first day + 6
     var firstday = new Date(curr.setDate(first)).toUTCString();
     var lastday = new Date(curr.setDate(last)).toUTCString();
-    console.log(firstday, lastday)
     setChangeDate(true);
     props.getSheduleThunk(props.match.params.id, convert(firstday), convert(lastday))
 }

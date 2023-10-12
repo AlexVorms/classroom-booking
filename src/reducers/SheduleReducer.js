@@ -32,7 +32,6 @@ export const setSheduleLoadingAC = (result) => ({type:SET_LOADING_SHEDULE, resul
 export const getSheduleThunk =(id, dateFrom, dateTo) => (dispatch) =>{
         dispatch(setSheduleLoadingAC(true));
        API.getShedule(id, dateFrom, dateTo).then(response => {
-        console.log(response)
             if(response.status === 200) {
             dispatch(setSheduleAC(response.data))
             dispatch(setSheduleLoadingAC(false));
@@ -53,7 +52,6 @@ export const AddBookingThunk = (data) =>(dispatch) =>{
             else{
                 dispatch(setErrorToast("Что-то пошло не так"))
             }
-            console.log(response)
         } )
 
 }

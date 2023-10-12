@@ -30,10 +30,24 @@ const AddBooking = (data) => {
     .then(response => response)
     .catch(error => error.response);
 }
+
+const GetBookingDetails = (id) => {
+    return instance.get('/bookingDetails/' + id)
+    .then(response => response)
+    .catch(error => error.response);
+}
+
+const DeleteBooking = (id) => {
+    return instance.delete('/deleteBooking/' + id)
+    .then(response => response)
+    .catch(error => error.response);
+}
 export const API = {
     getBuildings: getBuildings,
     getAudiences: getAudiences,
     getShedule: getShedule,
     getBookings: getBookings,
-    AddBooking: AddBooking
+    AddBooking: AddBooking,
+    GetBookingDetails: GetBookingDetails,
+    DeleteBooking: DeleteBooking
 }

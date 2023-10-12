@@ -69,7 +69,6 @@ class ModalForCreatingBooking extends React.Component{
             userId: "31298ace-27ed-4b8c-82e8-47dfa05c58e0",
             description: this.state.text
           }
-          console.log(date);
           this.props.AddBookingThunk(date)
         }
     render(){
@@ -79,6 +78,7 @@ class ModalForCreatingBooking extends React.Component{
         <Modal  open={this.props.show} onOk={this.AddBooking} 
         onCancel={this.props.onHide}  title = "Забронировать аудиторию"
         style={{ top: 20 }}>
+          
                   <Form style={{ marginTop: '20px' }}>
                   <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                     <Row>

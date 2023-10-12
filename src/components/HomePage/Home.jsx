@@ -29,7 +29,7 @@ function HomePage(){
         </Card.Text>
       </Card.Body>
     </Card>
-    <Button variant="outline-light" style={{top:"460px", left:"70px", position:"absolute"}} >Начать работу </Button>
+    <Button href="/audience" variant="outline-light" style={{top:"460px", left:"70px", position:"absolute"}} >Начать работу </Button>
             <img src=".\hero-header.png" style={imageStyle2}/>
         </div>
     )
